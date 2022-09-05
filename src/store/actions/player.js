@@ -1,4 +1,4 @@
-import { call, host } from "../../services/api";
+import { call } from "../../services/api";
 import { serverErrorMessage, unauthorizedMessage } from "../../utils/message";
 import { REMOVE_ERROR, SET_ERROR, SET_LOADING, SET_PLAYERS } from "../type";
 

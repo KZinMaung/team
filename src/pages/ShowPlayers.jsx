@@ -10,13 +10,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
+import OutlinedButton from "../components/OutlinedButton";
 
 const columns = [
   { id: 'first_name', label: 'First Name', minWidth: 170 },
   { id: 'last_name', label: 'Last Name', minWidth: 100 },
   { id: 'position', label: 'Postion', minWidth: 170 },
   { id: 'team', label: 'Team', minWidth: 100 },
-
+  { id: 'actions', label:'Actions', minWidth: 100}
 ];
 
 
@@ -36,6 +37,10 @@ const ShowPlayers = () => {
         dispatch(getPlayers(page+1));
     },[dispatch, page])
     console.log("Players:", players)
+
+    const handleChangeTeam = (row)=>{
+      console.log("Row:", row)
+    }
     return (
         <>
             <Grid container spacing={2}>
@@ -75,15 +80,26 @@ const ShowPlayers = () => {
                   <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                     {columns.map((column) => {
                       const value = row[column.id];
-                      return (
-                        <TableCell key={column.id} align={column.align}>
-                          {typeof value === 'object'
-                            ? value.name
-                            : value}
-
-
-                        </TableCell>
-                      );
+                      if(column.id === 'actions'){
+                        return (
+                          <TableCell key={column.id} align={column.align}>
+                            <OutlinedButton text="Change Team" size="small" onClick={()=>{handleChangeTeam(row)}}/>
+                          </TableCell>
+                        )
+                        
+                      }
+                      else{
+                        return (
+                          <TableCell key={column.id} align={column.align}>
+                            {typeof value === 'object'
+                              ? value.name
+                              : value}
+  
+  
+                          </TableCell>
+                        );
+                      }
+                      
                     })}
                   </TableRow>
                 );

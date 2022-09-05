@@ -2,6 +2,7 @@ import { Box } from "@mui/material";
 import { Navigate, Route, Routes } from "react-router-dom";
 import ResponsiveAppBar from "../components/ResponsiveAppBar";
 import ShowPlayers from "./ShowPlayers";
+import ShowTeams from "./ShowTeams";
 
 
 const pages = [
@@ -18,7 +19,7 @@ const pages = [
     {
         name: 'Teams',
         route: 'show-teams',
-        element:" </>"
+        element:<ShowTeams/>
     },
    
 ];

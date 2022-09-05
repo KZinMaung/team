@@ -11,3 +11,9 @@ export const  REMOVE_ERROR= "REMOVE_ERROR";
 
 export const SET_PLAYER = "SET_PLAYER";
 export const SET_PLAYERS = "SET_PLAYERS";
+
+
+export const SET_TEAM = "SET_TEAM";
+export const SET_TEAMS = "SET_TEAMS";
+export const DELETE_TEAM = "DELETE_TEAM";
+
