@@ -3,8 +3,9 @@ export const SET_USERS = "SET_USERS";
 export const DELETE_USER = "DELETE_USER";
 
 export const SET_LOADING = "SET_LOADING";
-export const SET_SUCCESS = "SET_SUCCESS";
-export const SET_DELETE = "SET_DELETE";
+export const SET_CREATE_SUCCESS = "SET_CREATE_SUCCESS";
+export const SET_DELETE_SUCCESS = "SET_DELETE_SUCCESS";
+export const SET_EDIT_SUCCESS = "SET_EDIT_SUCCESS";
 
 export const SET_ERROR = "SET_ERROR";
 export const  REMOVE_ERROR= "REMOVE_ERROR";

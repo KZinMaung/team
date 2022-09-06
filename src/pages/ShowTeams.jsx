@@ -18,6 +18,12 @@ import AddIcon from '@mui/icons-material/Add';
 import CreateModal from "../components/team/CreateModal";
 import EditModal from "../components/team/EditModal";
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import errorNotify from "../components/ErrorNotify";
+import successNotify from "../components/SuccessNotify";
+import { successCreateMessage, successDeleteMessage, successEditMessage } from "../utils/message";
+
 
 const columns = [
   { id: 'full_name', label: 'Full Name', minWidth: 170 },
@@ -41,6 +47,8 @@ const ShowTeams = () => {
 
   const teams = useSelector((state) => state.team.teams);
   const team = useSelector((state) => state.team.team);
+  const status = useSelector((state) => state.status);
+  const error = useSelector((state) => state.error);
   const dispatch = useDispatch();
 
   const [page, setPage] = useState(0);
@@ -74,6 +82,38 @@ const ShowTeams = () => {
     }
   }, [teamId, dispatch])
 
+  useEffect(() => {
+    if (status.delete_success) {
+      successNotify(successDeleteMessage);
+    }
+    return () => status.delete_success;
+  }, [status.delete_success]);
+
+  useEffect(() => {
+    if (status.create_success) {
+      successNotify(successCreateMessage);
+      
+  
+    }
+    return () => status.create_success;
+  }, [status.create_success]);
+
+  useEffect(() => {
+    if (status.edit_success) {
+      successNotify(successEditMessage);
+    }
+    return () => status.edit_success;
+  }, [status.edit_success]);
+
+
+  useEffect(() => {
+    if (error.message !== null) {
+      errorNotify(error.message);
+    }
+    return () => error.message;
+  }, [error.message]);
+
+
   const [deletedId, setDeletedId] = useState();
   const [open, setOpen] = useState(false);
 
@@ -86,22 +126,24 @@ const ShowTeams = () => {
     setDeletedId();
   };
 
-  useEffect(()=>{
-    if(deletedId){
+  useEffect(() => {
+    if (deletedId) {
       handleClickOpen();
-      
-    }
-    
-  },[deletedId])
 
- const handleDelete = ()=>{
-  dispatch(deleteTeam(deletedId));
-  handleClose();
-  setDeletedId();
- }
+    }
+
+  }, [deletedId])
+
+  const handleDelete = () => {
+    dispatch(deleteTeam(deletedId));
+    handleClose();
+    setDeletedId();
+  }
+
 
   return (
     <>
+      <ToastContainer />
       <Grid container spacing={2}>
         <Grid item lg={9} md={8} xs={12}>
           <Box sx={{ width: "100%", bgcolor: 'white' }}>
@@ -152,7 +194,7 @@ const ShowTeams = () => {
                                     <IconButton sx={{ color: "#389e0d" }} aria-label="edit" size="small" onClick={() => setTeamId(row.id)}>
                                       <EditIcon fontSize="small" />
                                     </IconButton>
-                                    <IconButton sx={{ color: "red" }} aria-label="delete" size="small" onClick={()=> setDeletedId(row.id)}>
+                                    <IconButton sx={{ color: "red" }} aria-label="delete" size="small" onClick={() => setDeletedId(row.id)}>
                                       <DeleteIcon fontSize="small" />
                                     </IconButton>
                                   </Stack>
@@ -194,17 +236,17 @@ const ShowTeams = () => {
         </Grid>
       </Grid>
       {/* create Modal */}
-       <CreateModal openCreateModal={openCreateModal} handleCloseCreateModal={handleCloseCreateModal} />
-     
-     {/* edit Modal */}
-     <EditModal openEditModal={openEditModal} handleCloseEditModal={handleCloseEditModal} team={team}  setTeamId={setTeamId}/>
+      <CreateModal openCreateModal={openCreateModal} handleCloseCreateModal={handleCloseCreateModal} />
+
+      {/* edit Modal */}
+      <EditModal openEditModal={openEditModal} handleCloseEditModal={handleCloseEditModal} team={team} setTeamId={setTeamId} />
       <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        
+
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             Are you sure?

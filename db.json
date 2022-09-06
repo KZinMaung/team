@@ -1,19 +1,10 @@
 {
   "teams": [
     {
-      "city": "Altenta",
-      "division": "Southeast",
-      "full_name": "Atlanta Hawks",
-      "id": 1
-    },
-    {
-      "id": 2,
-      "abbreviation": "BOS",
       "city": "Boston",
-      "conference": "East",
       "division": "Atlantic",
-      "full_name": "Boston Celtics",
-      "name": "Celtics"
+      "full_name": "ddd",
+      "id": 2
     },
     {
       "id": 3,
@@ -86,33 +77,6 @@
       "division": "Pacific",
       "full_name": "LA Clippers",
       "name": "Clippers"
-    },
-    {
-      "id": 14,
-      "abbreviation": "LAL",
-      "city": "Los Angeles",
-      "conference": "West",
-      "division": "Pacific",
-      "full_name": "Los Angeles Lakers",
-      "name": "Lakers"
-    },
-    {
-      "id": 15,
-      "abbreviation": "MEM",
-      "city": "Memphis",
-      "conference": "West",
-      "division": "Southwest",
-      "full_name": "Memphis Grizzlies",
-      "name": "Grizzlies"
-    },
-    {
-      "id": 16,
-      "abbreviation": "MIA",
-      "city": "Miami",
-      "conference": "East",
-      "division": "Southeast",
-      "full_name": "Miami Heat",
-      "name": "Heat"
     },
     {
       "id": 17,
@@ -225,6 +189,122 @@
       "division": "Mandalay",
       "full_name": "Kay Zin",
       "id": 29
+    },
+    {
+      "full_name": "Hello",
+      "city": "ddd",
+      "division": "Hello",
+      "no_of_players": "13",
+      "id": 30
+    },
+    {
+      "full_name": "ddd",
+      "city": "Hello",
+      "division": "Hello",
+      "no_of_players": "Hello",
+      "id": 31
+    },
+    {
+      "full_name": "Hello",
+      "city": "Hello",
+      "division": "ddd",
+      "no_of_players": "ddd",
+      "id": 32
+    },
+    {
+      "full_name": "ddd",
+      "city": "ddd",
+      "division": "Hello",
+      "no_of_players": "Hello",
+      "id": 33
+    },
+    {
+      "full_name": "Hello",
+      "city": "Hello",
+      "division": "Hello",
+      "no_of_players": "ddd",
+      "id": 34
+    },
+    {
+      "city": "Hello",
+      "division": "Hello",
+      "full_name": "Hello",
+      "id": 35
+    },
+    {
+      "full_name": "Hello",
+      "city": "Hello",
+      "division": "Hello",
+      "no_of_players": "Hello",
+      "id": 36
+    },
+    {
+      "full_name": "Hello",
+      "city": "Hello",
+      "division": "Hello",
+      "no_of_players": "Hello",
+      "id": 37
+    },
+    {
+      "full_name": "Hello",
+      "city": "Hello",
+      "division": "Hello",
+      "no_of_players": "Hello",
+      "id": 39
+    },
+    {
+      "full_name": "Hello",
+      "city": "Hello",
+      "division": "Hello",
+      "no_of_players": "Hello",
+      "id": 40
+    },
+    {
+      "full_name": "Hello",
+      "city": "Hello",
+      "division": "Hello",
+      "no_of_players": "Hello",
+      "id": 41
+    },
+    {
+      "full_name": "Hello",
+      "city": "Hello",
+      "division": "Hello",
+      "no_of_players": "Hello",
+      "id": 42
+    },
+    {
+      "city": "Hello",
+      "division": "Hello",
+      "full_name": "Hello",
+      "id": 43
+    },
+    {
+      "full_name": "Hello",
+      "city": "Hello",
+      "division": "Hello",
+      "no_of_players": "Hello",
+      "id": 44
+    },
+    {
+      "full_name": "Hello",
+      "city": "Hello",
+      "division": "Hello",
+      "no_of_players": "Hello",
+      "id": 45
+    },
+    {
+      "full_name": "Hello",
+      "city": "Hello",
+      "division": "Hello",
+      "no_of_players": "Hello",
+      "id": 46
+    },
+    {
+      "city": "Test",
+      "division": "Hello",
+      "full_name": "Hello",
+      "id": 48
     }
   ],
   "players": [

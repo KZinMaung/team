@@ -1,13 +1,16 @@
 import styled from "@emotion/styled";
 import { Avatar, Grid, Paper, TextField, Typography } from "@mui/material";
 import { Box, Container, Stack } from "@mui/system";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import loginImage from "../utils/images/login.jpg";
 import team_logo from "../utils/images/team_logo.png";
 import ContainedButton from "../components/ContainedButton";
 import { useDispatch } from "react-redux";
 import { login } from "../store/actions";
-
+import {useSelector} from "react-redux";
+import errorNotify from "../components/ErrorNotify";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Image = styled(Box)(({ theme }) => ({
     height: "80vh",
@@ -29,6 +32,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 const Login = () => {
     const [userName, setUserName ]= useState("");
     const [ password , setPassword] = useState("");
+    const error = useSelector((state)=> state.error);
     const dispatch = useDispatch();
 
     const handleLogin = ()=>{
@@ -36,8 +40,17 @@ const Login = () => {
        
     }
 
+    useEffect(() => {
+        if (error.message !== null) {
+          errorNotify(error.message);
+        }
+        return () => error.message;
+      }, [error.message]);
+
     return (
-        <Container sx={{ maxWidth: "70%", mt: "5%"}}>
+        <>
+         <ToastContainer />
+         <Container sx={{ maxWidth: "70%", mt: "5%"}}>
             <StyledPaper >
                 <Grid container>
                     <Grid item lg={6} xs={0}>
@@ -94,6 +107,8 @@ const Login = () => {
                 </Grid>
             </StyledPaper>
         </Container>
+        </>
+       
         
 
 

@@ -41,43 +41,6 @@ export const login = (userName, password) => {
     }
 }
 
-// export const getUser = () => {
-//     return async (dispatch) => {
-//         dispatch({ type: SET_LOADING });
-//         try {
-//             const response = await call("get", "api/users/myProfile");
-//             const user = response.data.user;
-//             const { name, email } = user;
-//             dispatch({
-//                 type: SET_CURRENT_USER,
-//                 payload: { name, email },
-//             });
-//             dispatch({
-//                 type: REMOVE_ERROR,
-//             })
-//         }
-//         catch (error) {
-//             const { status} = error.response;
-
-//             if (status === 401) {
-//                 localStorage.removeItem("jwtToken");
-//                 dispatch({
-//                     type: SET_ERROR,
-//                     payload: unauthorizedMessage,
-//                 });
-//             }
-  
-//             else {
-//                 dispatch({
-//                     type: SET_ERROR,
-//                     payload: serverErrorMessage,
-//                 });
-//             }
-
-//         }
-//         dispatch({ type: SET_LOADING })
-//     }
-// }
 
 export const logout = ()=>{
     return async(dispatch)=>{

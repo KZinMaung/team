@@ -1,6 +1,6 @@
 import { call } from "../../services/api";
 import { serverErrorMessage, unauthorizedMessage } from "../../utils/message";
-import { DELETE_TEAM, REMOVE_ERROR, SET_DELETE, SET_ERROR, SET_LOADING, SET_SUCCESS, SET_TEAM, SET_TEAMS } from "../type";
+import { DELETE_TEAM, REMOVE_ERROR, SET_CREATE_SUCCESS, SET_DELETE_SUCCESS, SET_EDIT_SUCCESS, SET_ERROR, SET_LOADING, SET_TEAM, SET_TEAMS } from "../type";
 
 export const getTeams = (page) => {
    
@@ -53,11 +53,13 @@ export const getTeams = (page) => {
 export const createTeam = (data) => {
     console.log("data:", data)
     return async (dispatch) => {
-        dispatch({ type: SET_SUCCESS, payload: false });
+        dispatch({ type: SET_CREATE_SUCCESS, payload: false });
         dispatch({ type: SET_LOADING });
         try {
             await call("post", "teams", data);
-            dispatch({ type: SET_SUCCESS, payload: true });
+            setTimeout(() => {
+                dispatch({ type: SET_CREATE_SUCCESS, payload: true });
+            }, 1000);
             dispatch({
                 type: REMOVE_ERROR,
             });
@@ -81,19 +83,22 @@ export const createTeam = (data) => {
 
         }
         setTimeout(() => {
-            dispatch({ type: SET_SUCCESS, payload: false });
-        }, 1);
+            dispatch({ type: SET_CREATE_SUCCESS, payload: false });
+        }, 3000);
         dispatch({ type: SET_LOADING });
     }
 }
 
 export const deleteTeam = (id) => {
     return async (dispatch) => {
-        dispatch({ type: SET_DELETE, payload: false });
+        dispatch({ type: SET_DELETE_SUCCESS, payload: false });
         dispatch({ type: SET_LOADING });
         try {
             await call("delete", `teams/${id}`);
-            dispatch({ type: SET_DELETE, payload: true });
+            
+            setTimeout(() => {
+                dispatch({ type: SET_DELETE_SUCCESS, payload: true });
+            }, 1000);
             dispatch({ type: DELETE_TEAM, payload: id });
             dispatch({
                 type: REMOVE_ERROR
@@ -119,19 +124,21 @@ export const deleteTeam = (id) => {
 
         }
         setTimeout(() => {
-            dispatch({ type: SET_DELETE, payload: false });
-        }, 1);
+            dispatch({ type: SET_DELETE_SUCCESS, payload: false });
+        }, 3000);
         dispatch({ type: SET_LOADING });
     }
 }
 
 export const editTeam = (id, data) => {
     return async (dispatch) => {
-        dispatch({ type: SET_SUCCESS, payload: false });
+        dispatch({ type: SET_EDIT_SUCCESS, payload: false });
         dispatch({ type: SET_LOADING });
         try {
             await call("put", `teams/${id}`, data);
-            dispatch({ type: SET_SUCCESS, payload: true });
+            setTimeout(() => {
+                dispatch({ type: SET_EDIT_SUCCESS, payload: true });
+            }, 1000);
             dispatch({
                 type: REMOVE_ERROR
             })
@@ -158,8 +165,8 @@ export const editTeam = (id, data) => {
         }
 
         setTimeout(() => {
-            dispatch({ type: SET_SUCCESS, payload: false });
-        }, 1);
+            dispatch({ type: SET_EDIT_SUCCESS, payload: false });
+        }, 3000);
         dispatch({ type: SET_LOADING });
     }
 }
