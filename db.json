@@ -1,12 +1,6 @@
 {
   "teams": [
     {
-      "id": 2
-    },
-    {
-      "id": 3
-    },
-    {
       "id": 4,
       "abbreviation": "CHA",
       "city": "Charlotte",
