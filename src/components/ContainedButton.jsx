@@ -10,6 +10,7 @@ const StyledContainedButton = styled(Button)(({ theme }) => ({
         backgroundColor: "transparent",
     },
 }));
+
 const ContainedButton = ({text, startIcon=< ></>, onClick=()=>{}}) => {
     return (
         <StyledContainedButton

@@ -1,4 +1,4 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, Grid, IconButton, Modal, TextField, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, Grid, IconButton, Typography } from "@mui/material";
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from "react";
 import Paper from '@mui/material/Paper';
@@ -9,12 +9,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import { deleteTeam, editTeam, getTeam, getTeams } from "../store/actions/team";
+import { deleteTeam, getTeam, getTeams } from "../store/actions/team";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from '@mui/icons-material/Edit';
 import { Stack } from "@mui/system";
 import ContainedButton from "../components/ContainedButton";
 import AddIcon from '@mui/icons-material/Add';
+import CreateModal from "../components/team/CreateModal";
+import EditModal from "../components/team/EditModal";
 
 
 const columns = [
@@ -30,26 +32,19 @@ const ShowTeams = () => {
   const handleOpenCreateModal = () => setOpenCreateModal(true);
   const handleCloseCreateModal = () => setOpenCreateModal(false);
 
+  const [openEditModal, setOpenEditModal] = useState(false);
+  const handleOpenEditModal = () => setOpenEditModal(true);
+  const handleCloseEditModal = () => {
+    setOpenEditModal(false);
+    setTeamId();
+  }
+
   const teams = useSelector((state) => state.team.teams);
   const team = useSelector((state) => state.team.team);
   const dispatch = useDispatch();
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-
-  const theme = useTheme();
-  const downThanMd = useMediaQuery(theme.breakpoints.down('md'));
-  const downThanLg = useMediaQuery(theme.breakpoints.down('lg'));
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: downThanLg ? (downThanMd ? "65vw" : "50vw") : "35vw",
-    p: 4,
-    borderRadius: "10px"
-  };
-
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -60,19 +55,14 @@ const ShowTeams = () => {
     setPage(0);
   };
 
-  const handleUpdate= (id)=>{
-    dispatch(editTeam(id));
-  }
 
 
   useEffect(() => {
     dispatch(getTeams());
-  }, [dispatch])
+  }, [dispatch, openCreateModal, openEditModal])
 
   const [teamId, setTeamId] = useState();
-  const [openEditModal, setOpenEditModal] = useState(false);
-  const handleOpenEditModal = () => setOpenEditModal(true);
-  const handleCloseEditModal = () => setOpenEditModal(false);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -93,6 +83,7 @@ const ShowTeams = () => {
 
   const handleClose = () => {
     setOpen(false);
+    setDeletedId();
   };
 
   useEffect(()=>{
@@ -106,6 +97,7 @@ const ShowTeams = () => {
  const handleDelete = ()=>{
   dispatch(deleteTeam(deletedId));
   handleClose();
+  setDeletedId();
  }
 
   return (
@@ -201,61 +193,11 @@ const ShowTeams = () => {
           </Paper>
         </Grid>
       </Grid>
-      <Modal
-        open={openCreateModal}
-        onClose={handleCloseCreateModal}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Paper sx={style}>
-          <Stack spacing={1}>
-
-            <Box>
-              <TextField id="standard-basic" label="Full Name" variant="standard" sx={{ width: '100%' }} onChange={(e) => { }} />
-            </Box> <Box>
-              <TextField id="standard-basic" label="Number of Players" variant="standard" sx={{ width: '100%' }} onChange={(e) => { }} />
-            </Box>
-            <Box>
-              <TextField id="standard-basic" label="City" variant="standard" sx={{ width: '100%' }} onChange={(e) => { }} />
-            </Box>
-            <Box>
-              <TextField id="standard-basic" label="Division" variant="standard" sx={{ width: '100%' }} onChange={(e) => { }} />
-            </Box>
-            <Box sx={{ width: "100%", pt: "20px" }}>
-              <ContainedButton text="Create" onClick={() => { }} />
-            </Box>
-
-          </Stack>
-        </Paper>
-      </Modal>
-      <Modal
-        open={openEditModal}
-        onClose={handleCloseEditModal}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Paper sx={style}>
-          <Stack spacing={1}>
-
-            <Box>
-              <TextField id="standard-basic" label="Full Name" variant="standard" sx={{ width: '100%' }} onChange={(e) => { }} InputLabelProps={{ shrink: true }} placeholder={team.full_name} />
-            </Box> 
-            {/* <Box>
-              <TextField id="standard-basic" label="Number of Players" variant="standard" sx={{ width: '100%' }} onChange={(e) => { }} InputLabelProps={{ shrink: true }} placeholder={team.full_name} />
-            </Box> */}
-            <Box>
-              <TextField id="standard-basic" label="City" variant="standard" sx={{ width: '100%' }} onChange={(e) => { }} InputLabelProps={{ shrink: true }} placeholder={team.city} />
-            </Box>
-            <Box>
-              <TextField id="standard-basic" label="Division" variant="standard" sx={{ width: '100%' }} onChange={(e) => { }} InputLabelProps={{ shrink: true }} placeholder={team.division} />
-            </Box>
-            <Box sx={{ width: "100%", pt: "20px" }}>
-              <ContainedButton text="Update" onClick={() => {handleUpdate(team.id)}} />
-            </Box>
-
-          </Stack>
-        </Paper>
-      </Modal>
+      {/* create Modal */}
+       <CreateModal openCreateModal={openCreateModal} handleCloseCreateModal={handleCloseCreateModal} />
+     
+     {/* edit Modal */}
+     <EditModal openEditModal={openEditModal} handleCloseEditModal={handleCloseEditModal} team={team}  setTeamId={setTeamId}/>
       <Dialog
         open={open}
         onClose={handleClose}

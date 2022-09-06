@@ -1,13 +1,10 @@
 {
   "teams": [
     {
-      "id": 1,
-      "abbreviation": "ATL",
-      "city": "Atlanta",
-      "conference": "East",
+      "city": "Altenta",
       "division": "Southeast",
       "full_name": "Atlanta Hawks",
-      "name": "Hawks"
+      "id": 1
     },
     {
       "id": 2,
@@ -80,15 +77,6 @@
       "division": "Pacific",
       "full_name": "Golden State Warriors",
       "name": "Warriors"
-    },
-    {
-      "id": 12,
-      "abbreviation": "IND",
-      "city": "Indiana",
-      "conference": "East",
-      "division": "Central",
-      "full_name": "Indiana Pacers",
-      "name": "Pacers"
     },
     {
       "id": 13,
@@ -224,6 +212,19 @@
       "division": "Southwest",
       "full_name": "San Antonio Spurs",
       "name": "Spurs"
+    },
+    {
+      "city": "Pyin Oo Lwin",
+      "division": "Southwest",
+      "full_name": "new team",
+      "no_of_players": 12,
+      "id": 28
+    },
+    {
+      "city": "Pyin Oo Lwin",
+      "division": "Mandalay",
+      "full_name": "Kay Zin",
+      "id": 29
     }
   ],
   "players": [

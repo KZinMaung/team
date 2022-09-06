@@ -3,7 +3,7 @@ import { Avatar, Grid, Paper, TextField, Typography } from "@mui/material";
 import { Box, Container, Stack } from "@mui/system";
 import { useState } from "react";
 import loginImage from "../utils/images/login.jpg";
-import logo from "../utils/images/logo.jpg";
+import team_logo from "../utils/images/team_logo.png";
 import ContainedButton from "../components/ContainedButton";
 import { useDispatch } from "react-redux";
 import { login } from "../store/actions";
@@ -55,8 +55,8 @@ const Login = () => {
                             <Stack spacing={2} sx={{ alignItems: "center", alignContent: "center" }}>
                                 <Avatar
                                     alt="Second Tap Root"
-                                    src={logo}
-                                    sx={{ width: 56, height: 56 , border:"1px solid var(--medium-grey)", p:"10px"}}
+                                    src={team_logo}
+                                    sx={{ width: 70, height: 70, p:"10px"}}
                                 />
                                 <Typography
                                     variant="h4"

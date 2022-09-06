@@ -130,7 +130,7 @@ export const editTeam = (id, data) => {
         dispatch({ type: SET_SUCCESS, payload: false });
         dispatch({ type: SET_LOADING });
         try {
-            await call("post", `teams/${id}`, data);
+            await call("put", `teams/${id}`, data);
             dispatch({ type: SET_SUCCESS, payload: true });
             dispatch({
                 type: REMOVE_ERROR

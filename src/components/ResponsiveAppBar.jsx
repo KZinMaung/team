@@ -10,7 +10,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import logo from "../utils/images/logo.jpg";
+import team_logo from "../utils/images/team_logo.png";
 import { Stack, styled } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -37,7 +37,7 @@ const ResponsiveAppBar = ({ pages }) => {
     const location = useLocation();
     const pathName0 = location.pathname;
     const pathName1 = (pathName0 !== '/admin') ? pathName0.split("/")[2] : pathName0;
-    const pathName = (pathName1.includes("-")) ? pathName1.split("-")[1] : pathName1;  //dashboard, blog, gallery, videos
+    const pathName = (pathName1.includes("-")) ? pathName1.split("-")[1] : pathName1; 
 
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -65,7 +65,7 @@ const ResponsiveAppBar = ({ pages }) => {
                 <Toolbar>
                     <Avatar
                         alt="Team Management"
-                        src={logo}
+                        src={team_logo}
                         sx={{ width: 40, height: 40, border: "1px solid var(--light-grey)", display: { xs: 'none', md: 'flex' } }}
 
                     />
@@ -132,7 +132,7 @@ const ResponsiveAppBar = ({ pages }) => {
                     </Box>
                     <Avatar
                         alt="Team Management"
-                        src={logo}
+                        src={team_logo}
                         sx={{ width: 40, height: 40, border: "1px solid var(--light-grey)", display: { xs: 'flex', md: 'none' } }}
 
                     />
