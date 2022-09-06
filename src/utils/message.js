@@ -5,3 +5,4 @@ export const serverErrorMessage = "Something was wrong!";
 export const unauthorizedMessage = "Unauthorized";
 export const duplicateMessage = "The team with that name is already existed.";
 export const requireMessage = "Please fill in all fields.";
+export const selectMessage = "Please select a team.";

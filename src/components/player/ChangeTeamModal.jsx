@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import ContainedButton from "../ContainedButton";
 import { useSelector, useDispatch} from "react-redux";
 import { changeTeamOfPlayer, getTeam, getTeams } from "../../store/actions";
+import errorNotify from "../ErrorNotify";
+import { selectMessage } from "../../utils/message";
 
 const ChangeTeamModal = ({ openModal, handleClose , playerId}) => {
 
@@ -31,9 +33,17 @@ const ChangeTeamModal = ({ openModal, handleClose , playerId}) => {
         fetchData();
     },[dispatch])
 
-    useEffect(()=>{
+    useEffect(()=>{ 
         dispatch(getTeam(teamId))
     }, [dispatch, teamId])
+
+    useEffect(()=>{
+        //after select and close modal , not save, playerId is null but teamId is still exit.
+        //so, when playId is null, setTeamId = ''
+        if(!playerId){
+            setTeamId('');
+        }
+    },[playerId])
 
    
     const handleChange = (event) => {
@@ -41,12 +51,16 @@ const ChangeTeamModal = ({ openModal, handleClose , playerId}) => {
       };
 
       const handleSave = async()=>{
-        await dispatch(changeTeamOfPlayer(playerId, team))
-        handleClose();
-        setTeamId('');
+        if (typeof team === 'object' && Object.keys(team).length === 0) {
+            errorNotify(selectMessage);
+        } 
+        else{
+            await dispatch(changeTeamOfPlayer(playerId, team))
+            handleClose();
+            setTeamId('');
+        }
+        
       }
- 
-      console.log("team:", team)
 
     return (
         <Modal

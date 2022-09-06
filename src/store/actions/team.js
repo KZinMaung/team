@@ -187,16 +187,26 @@ export const getTeam = (id) => {
     return async (dispatch) => {
         dispatch({ type: SET_LOADING });
         try {
-            const response = await call("get", `teams/${id}`);
-            const data = response.data;
+            //in react component, if id === '', need to be 'state.team is empty'
+            if(id === ''){   
+                dispatch({
+                    type: SET_TEAM,
+                    payload: { },
+                });
+            }
+            else{
+                const response = await call("get", `teams/${id}`);
+                const data = response.data;
+                
+                dispatch({
+                    type: SET_TEAM,
+                    payload: data,
+                });
+                dispatch({
+                    type: REMOVE_ERROR
+                })
+            }
             
-            dispatch({
-                type: SET_TEAM,
-                payload: data,
-            });
-            dispatch({
-                type: REMOVE_ERROR
-            })
         }
         catch (error) {
             const { status } = error.response;
