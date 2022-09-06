@@ -32,114 +32,103 @@ const columns = [
   { id: 'actions', label: 'Actions', minWidth: 100 }
 ];
 
-
 const ShowTeams = () => {
-  const [openCreateModal, setOpenCreateModal] = useState(false);
-  const handleOpenCreateModal = () => setOpenCreateModal(true);
-  const handleCloseCreateModal = () => setOpenCreateModal(false);
-
-  const [openEditModal, setOpenEditModal] = useState(false);
-  const handleOpenEditModal = () => setOpenEditModal(true);
-  const handleCloseEditModal = () => {
-    setOpenEditModal(false);
-    setTeamId();
-  }
-
+  //states
   const teams = useSelector((state) => state.team.teams);
   const team = useSelector((state) => state.team.team);
   const status = useSelector((state) => state.status);
   const error = useSelector((state) => state.error);
   const dispatch = useDispatch();
 
+  const [deletedId, setDeletedId] = useState();
+  const [teamId, setTeamId] = useState();
+
+  const [openCreateModal, setOpenCreateModal] = useState(false);
+  const [openEditModal, setOpenEditModal] = useState(false);
+  const [open, setOpen] = useState(false);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
+
+ //useEffect
+ useEffect(() => {
+  dispatch(getTeams());
+}, [dispatch, openCreateModal, openEditModal])
+
+useEffect(() => {
+  const fetchData = async () => {
+    await dispatch(getTeam(teamId));
+  }
+  if (teamId) {
+    fetchData();
+    handleOpenEditModal();
+  }
+}, [teamId, dispatch])
+
+useEffect(() => {
+  if (status.delete_success) {
+    successNotify(successDeleteMessage);
+  }
+  return () => status.delete_success;
+}, [status.delete_success]);
+
+useEffect(() => {
+  if (status.create_success) {
+    successNotify(successCreateMessage);
+  }
+  return () => status.create_success;
+}, [status.create_success]);
+
+useEffect(() => {
+  if (status.edit_success) {
+    successNotify(successEditMessage);
+  }
+  return () => status.edit_success;
+}, [status.edit_success]);
+
+
+useEffect(() => {
+  if (error.message !== null) {
+    errorNotify(error.message);
+  }
+  return () => error.message;
+}, [error.message]);
+
+useEffect(() => {
+  if (deletedId) {
+    handleClickOpen();
+
+  }
+}, [deletedId])
+
+ //handle
+  const handleOpenCreateModal = () => setOpenCreateModal(true);
+  const handleCloseCreateModal = () => setOpenCreateModal(false);
+  const handleOpenEditModal = () => setOpenEditModal(true);
+  const handleCloseEditModal = () => {
+    setOpenEditModal(false);
+    setTeamId();
+  }
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
-
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
-
-
-  useEffect(() => {
-    dispatch(getTeams());
-  }, [dispatch, openCreateModal, openEditModal])
-
-  const [teamId, setTeamId] = useState();
-
-
-  useEffect(() => {
-    const fetchData = async () => {
-      await dispatch(getTeam(teamId));
-    }
-    if (teamId) {
-      fetchData();
-      handleOpenEditModal();
-    }
-  }, [teamId, dispatch])
-
-  useEffect(() => {
-    if (status.delete_success) {
-      successNotify(successDeleteMessage);
-    }
-    return () => status.delete_success;
-  }, [status.delete_success]);
-
-  useEffect(() => {
-    if (status.create_success) {
-      successNotify(successCreateMessage);
-      
-  
-    }
-    return () => status.create_success;
-  }, [status.create_success]);
-
-  useEffect(() => {
-    if (status.edit_success) {
-      successNotify(successEditMessage);
-    }
-    return () => status.edit_success;
-  }, [status.edit_success]);
-
-
-  useEffect(() => {
-    if (error.message !== null) {
-      errorNotify(error.message);
-    }
-    return () => error.message;
-  }, [error.message]);
-
-
-  const [deletedId, setDeletedId] = useState();
-  const [open, setOpen] = useState(false);
-
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
     setDeletedId();
   };
-
-  useEffect(() => {
-    if (deletedId) {
-      handleClickOpen();
-
-    }
-
-  }, [deletedId])
-
+  
   const handleDelete = () => {
     dispatch(deleteTeam(deletedId));
     handleClose();
     setDeletedId();
   }
-
 
   return (
     <>
@@ -246,10 +235,9 @@ const ShowTeams = () => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Are you sure?
+            Are you sure to delete?
           </DialogContentText>
         </DialogContent>
         <DialogActions>

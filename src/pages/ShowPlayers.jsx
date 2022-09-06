@@ -28,6 +28,8 @@ const columns = [
 
 
 const ShowPlayers = () => {
+
+  //states
   const players = useSelector((state) => state.player.players);
   const totalCount = useSelector((state)=> state.player.totalCount);
   const status = useSelector((state)=> state.status);
@@ -36,26 +38,16 @@ const ShowPlayers = () => {
   const dispatch = useDispatch();
 
   const [openModal, setOpenModal] = useState(false);
-  const handleOpen = () => setOpenModal(true);
-  const handleClose = () => {
-    setOpenModal(false);
-    setPlayerId();
-  }
-
   const [page, setPage] = useState(0);
   const [rowsPerPage] = useState(10);
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
+  
+  //useEffect
   useEffect(() => {
     if (status.edit_success) {
       successNotify(successEditMessage);
     }
     return () => status.edit_success;
   }, [status.edit_success]);
-
 
   useEffect(() => {
     if (error.message !== null) {
@@ -64,22 +56,29 @@ const ShowPlayers = () => {
     return () => error.message;
   }, [error.message]);
 
-
   useEffect(() => {
     dispatch(getPlayers(page + 1));
   }, [dispatch, page, openModal])
-
 
   useEffect(() => {
     if (playerId) {
       handleOpen();
     }
-
   }, [playerId])
 
   useEffect(()=>{
     dispatch(getTotalCount());
   },[dispatch])
+
+  //handle
+  const handleOpen = () => setOpenModal(true);
+  const handleClose = () => {
+    setOpenModal(false);
+    setPlayerId();
+  }
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
 
   return (
     <>

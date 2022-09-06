@@ -4,17 +4,19 @@ import ResponsiveAppBar from "../components/ResponsiveAppBar";
 import ShowPlayers from "./ShowPlayers";
 import ShowTeams from "./ShowTeams";
 
-
 const pages = [
     {
         name: 'Players',
         route: 'show-players',
-        element:<ShowPlayers/>
+        element:<ShowPlayers/>,
+        key: 1
+
     },
     {
         name: 'Teams',
         route: 'show-teams',
-        element:<ShowTeams/>
+        element:<ShowTeams/>,
+        key: 2
     }
    
 ];
@@ -27,7 +29,7 @@ const Admin = () => {
             <Routes>
                     <Route path="/" element={<Navigate to="/admin/show-players"></Navigate>}></Route>
                     {pages.map((page)=>(
-                        <Route path={page.route} element={page.element}></Route>
+                        <Route path={page.route} element={page.element} key={page.key}></Route>
                     ))}
                     
                 </Routes>

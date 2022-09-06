@@ -19,13 +19,10 @@
       "name": "Bulls"
     },
     {
-      "id": 7,
-      "abbreviation": "DAL",
       "city": "Dallas",
-      "conference": "West",
       "division": "Southwest",
-      "full_name": "Dallas Mavericks",
-      "name": "Mavericks"
+      "full_name": "Dallas Mavericks y",
+      "id": 7
     },
     {
       "city": "Charlotte",
@@ -77,33 +74,6 @@
       "division": "Northwest",
       "full_name": "Minnesota Timberwolves",
       "name": "Timberwolves"
-    },
-    {
-      "id": 19,
-      "abbreviation": "NOP",
-      "city": "New Orleans",
-      "conference": "West",
-      "division": "Southwest",
-      "full_name": "New Orleans Pelicans",
-      "name": "Pelicans"
-    },
-    {
-      "id": 20,
-      "abbreviation": "NYK",
-      "city": "New York",
-      "conference": "East",
-      "division": "Atlantic",
-      "full_name": "New York Knicks",
-      "name": "Knicks"
-    },
-    {
-      "id": 21,
-      "abbreviation": "OKC",
-      "city": "Oklahoma City",
-      "conference": "West",
-      "division": "Northwest",
-      "full_name": "Oklahoma City Thunder",
-      "name": "Thunder"
     },
     {
       "id": 22,
@@ -439,13 +409,13 @@
       "last_name": "Evans",
       "position": "G",
       "team": {
-        "id": 19,
-        "abbreviation": "NOP",
-        "city": "New Orleans",
-        "conference": "West",
-        "division": "Southwest",
-        "full_name": "New Orleans Pelicans",
-        "name": "Pelicans"
+        "id": 20,
+        "abbreviation": "NYK",
+        "city": "New York",
+        "conference": "East",
+        "division": "Atlantic",
+        "full_name": "New York Knicks",
+        "name": "Knicks"
       },
       "weight_pounds": null
     },
