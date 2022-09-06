@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { editTeam } from "../../store/actions/team";
 import errorNotify from "../ErrorNotify";
+import { requireMessage } from "../../utils/message";
 
 const EditModal = ({ openEditModal, handleCloseEditModal, team, setTeamId}) => {
     const dispatch = useDispatch();
@@ -37,7 +38,7 @@ const EditModal = ({ openEditModal, handleCloseEditModal, team, setTeamId}) => {
             setTeamId();
         }
         else{
-            errorNotify("Please fill all fields!")
+            errorNotify(requireMessage);
         }
     }
     useEffect(() => {

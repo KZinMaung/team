@@ -1,5 +1,5 @@
 import { call } from "../../services/api";
-import { serverErrorMessage, unauthorizedMessage } from "../../utils/message";
+import { duplicateMessage, serverErrorMessage, unauthorizedMessage } from "../../utils/message";
 import { DELETE_TEAM, REMOVE_ERROR, SET_CREATE_SUCCESS, SET_DELETE_SUCCESS, SET_EDIT_SUCCESS, SET_ERROR, SET_LOADING, SET_TEAM, SET_TEAMS } from "../type";
 
 export const getTeams = (page) => {
@@ -56,13 +56,25 @@ export const createTeam = (data) => {
         dispatch({ type: SET_CREATE_SUCCESS, payload: false });
         dispatch({ type: SET_LOADING });
         try {
-            await call("post", "teams", data);
-            setTimeout(() => {
-                dispatch({ type: SET_CREATE_SUCCESS, payload: true });
-            }, 1000);
-            dispatch({
-                type: REMOVE_ERROR,
-            });
+            const response = await call("get", "teams");
+            const teams = response.data;
+            const index = teams.find((team)=> team.full_name === data.full_name);
+            if(index){
+                dispatch({
+                    type: SET_ERROR,
+                    payload: duplicateMessage,
+                });
+            }
+            else{
+                await call("post", "teams", data);
+                setTimeout(() => {
+                    dispatch({ type: SET_CREATE_SUCCESS, payload: true });
+                }, 1000);
+                dispatch({
+                    type: REMOVE_ERROR,
+                });
+            }
+            
         } catch (error) {
             const { status } = error.response;
 

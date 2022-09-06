@@ -231,47 +231,6 @@
       "city": "Hello",
       "division": "Hello",
       "no_of_players": "Hello",
-      "id": 39
-    },
-    {
-      "full_name": "Hello",
-      "city": "Hello",
-      "division": "Hello",
-      "no_of_players": "Hello",
-      "id": 40
-    },
-    {
-      "full_name": "Hello",
-      "city": "Hello",
-      "division": "Hello",
-      "no_of_players": "Hello",
-      "id": 41
-    },
-    {
-      "full_name": "Hello",
-      "city": "Hello",
-      "division": "Hello",
-      "no_of_players": "Hello",
-      "id": 42
-    },
-    {
-      "city": "Hello",
-      "division": "Hello",
-      "full_name": "Hello",
-      "id": 43
-    },
-    {
-      "full_name": "Hello",
-      "city": "Hello",
-      "division": "Hello",
-      "no_of_players": "Hello",
-      "id": 44
-    },
-    {
-      "full_name": "Hello",
-      "city": "Hello",
-      "division": "Hello",
-      "no_of_players": "Hello",
       "id": 45
     },
     {
@@ -323,6 +282,13 @@
       "city": "fff",
       "division": "dddd",
       "id": 57
+    },
+    {
+      "full_name": "fff",
+      "no_of_players": "12",
+      "city": "2",
+      "division": "e",
+      "id": 58
     }
   ],
   "players": [
@@ -330,13 +296,13 @@
       "first_name": "Ike",
       "id": 14,
       "team": {
-        "id": 19,
-        "abbreviation": "NOP",
-        "city": "New Orleans",
+        "id": 18,
+        "abbreviation": "MIN",
+        "city": "Minnesota",
         "conference": "West",
-        "division": "Southwest",
-        "full_name": "New Orleans Pelicans",
-        "name": "Pelicans"
+        "division": "Northwest",
+        "full_name": "Minnesota Timberwolves",
+        "name": "Timberwolves"
       }
     },
     {

@@ -1,8 +1,8 @@
-import { Box, Button, Modal, Paper, Stack, TextField, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Modal, Paper, Stack, TextField, useMediaQuery, useTheme } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { createTeam } from "../../store/actions/team";
 import { useForm } from "react-hook-form";
-
+import ContainedButton from '../ContainedButton';
 const CreateModal = ({ openCreateModal, handleCloseCreateModal }) => {
   const dispatch = useDispatch();
 
@@ -22,10 +22,20 @@ const CreateModal = ({ openCreateModal, handleCloseCreateModal }) => {
   const {
     register,
     handleSubmit,
+    resetField,
   } = useForm();
+
+  const handleResetFields = ()=>{
+    resetField("full_name");
+    resetField("no_of_players");
+    resetField("city");
+    resetField("division");
+
+  }
   const onSubmit = (data) => {
     dispatch(createTeam(data));
     handleCloseCreateModal();
+    handleResetFields();
   }
 
   return (
@@ -50,9 +60,7 @@ const CreateModal = ({ openCreateModal, handleCloseCreateModal }) => {
               <TextField id="standard-basic" label="Division" variant="standard" sx={{ width: '100%' }}   {...register('division', { required: true })} required />
             </Box>
             <Box sx={{ width: "100%", pt: "20px" }}>
-              {/* <ContainedButton text="Create" onClick={handleCreate}/> */}
-              <Button type="submit">Create</Button>
-
+              <ContainedButton text="Create" />
             </Box>
 
           </Stack>
