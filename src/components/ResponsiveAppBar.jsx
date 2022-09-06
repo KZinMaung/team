@@ -36,8 +36,7 @@ const ResponsiveAppBar = ({ pages }) => {
     const navigate = useNavigate();
     const location = useLocation();
     const pathName0 = location.pathname;
-    const pathName1 = (pathName0 !== '/admin') ? pathName0.split("/")[2] : pathName0;
-    const pathName = (pathName1.includes("-")) ? pathName1.split("-")[1] : pathName1; 
+    const pathName =  pathName0.split("/")[2];
 
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);

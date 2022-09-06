@@ -1,6 +1,6 @@
 import { call } from "../../services/api";
 import { serverErrorMessage, unauthorizedMessage } from "../../utils/message";
-import { REMOVE_ERROR, SET_EDIT_SUCCESS, SET_ERROR, SET_LOADING, SET_PLAYERS } from "../type";
+import { REMOVE_ERROR, SET_EDIT_SUCCESS, SET_ERROR, SET_LOADING, SET_PLAYERS, SET_TOTAL_COUNT } from "../type";
 
 export const getPlayers = (page) => {
    
@@ -92,6 +92,47 @@ export const changeTeamOfPlayer = (id, team) => {
             dispatch({ type: SET_EDIT_SUCCESS, payload: false });
         }, 3000);
         dispatch({ type: SET_LOADING });
+    }
+}
+
+export const getTotalCount = () =>{
+    return async (dispatch) => {
+        dispatch({ type: SET_LOADING });
+        try {
+            const response = await call("get", 'players');
+            const data = response.data;
+            const total_count = data.length;
+
+            dispatch({
+                type: SET_TOTAL_COUNT,
+                payload: total_count,
+            });
+
+            dispatch({
+                type: REMOVE_ERROR,
+            })
+
+        }
+        catch (error) {
+            const { status } = error.response;
+
+            if (status === 401) {
+                localStorage.removeItem("user_name");
+                dispatch({
+                    type: SET_ERROR,
+                    payload: unauthorizedMessage,
+                });
+            }
+
+            else {
+                dispatch({
+                    type: SET_ERROR,
+                    payload: serverErrorMessage,
+                });
+            }
+
+        }
+        dispatch({ type: SET_LOADING })
     }
 }
 

@@ -1,8 +1,9 @@
-import { SET_PLAYER, SET_PLAYERS } from "../type";
+import { SET_PLAYER, SET_PLAYERS, SET_TOTAL_COUNT } from "../type";
 
 const initialState = {
     player: {},
     players: [],
+    totalCount: 0
 }
 
 const player = (state = initialState, action) => {
@@ -16,6 +17,11 @@ const player = (state = initialState, action) => {
                 return{
                     ...state,
                     players: action.payload
+                }
+                case SET_TOTAL_COUNT:
+                return{
+                    ...state,
+                    totalCount: action.payload
                 }
         default:
             return state;

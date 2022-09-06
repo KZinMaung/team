@@ -475,13 +475,13 @@
       "last_name": "Bogut",
       "position": "F",
       "team": {
-        "id": 10,
-        "abbreviation": "GSW",
-        "city": "Golden State",
+        "id": 19,
+        "abbreviation": "NOP",
+        "city": "New Orleans",
         "conference": "West",
-        "division": "Pacific",
-        "full_name": "Golden State Warriors",
-        "name": "Warriors"
+        "division": "Southwest",
+        "full_name": "New Orleans Pelicans",
+        "name": "Pelicans"
       },
       "weight_pounds": null
     },

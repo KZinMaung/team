@@ -1,7 +1,7 @@
 import { Box, Grid, Typography } from "@mui/material";
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from "react";
-import { getPlayers } from "../store/actions/player";
+import { getPlayers, getTotalCount } from "../store/actions/player";
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -29,6 +29,7 @@ const columns = [
 
 const ShowPlayers = () => {
   const players = useSelector((state) => state.player.players);
+  const totalCount = useSelector((state)=> state.player.totalCount);
   const status = useSelector((state)=> state.status);
   const error = useSelector((state)=> state.error);
   const [playerId, setPlayerId] = useState();
@@ -75,6 +76,10 @@ const ShowPlayers = () => {
     }
 
   }, [playerId])
+
+  useEffect(()=>{
+    dispatch(getTotalCount());
+  },[dispatch])
 
   return (
     <>
@@ -146,7 +151,7 @@ const ShowPlayers = () => {
             <TablePagination
               rowsPerPageOptions={[]}
               component="div"
-              count={100}
+              count={totalCount}
               rowsPerPage={rowsPerPage}
               page={page}
               onPageChange={handleChangePage}
