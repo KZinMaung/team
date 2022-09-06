@@ -3,6 +3,7 @@ import ContainedButton from "../ContainedButton";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { editTeam } from "../../store/actions/team";
+import errorNotify from "../ErrorNotify";
 
 const EditModal = ({ openEditModal, handleCloseEditModal, team, setTeamId}) => {
     const dispatch = useDispatch();
@@ -24,16 +25,20 @@ const EditModal = ({ openEditModal, handleCloseEditModal, team, setTeamId}) => {
     const [division, setDivision] = useState();
 
     const handleUpdate = async (id) => {
-        const data = {
-            "city": city,
-            "division": division,
-            "full_name": fullName
+        if(city && division && fullName){
+            const data = {
+                "city": city,
+                "division": division,
+                "full_name": fullName
+            }
+            console.log("data:", data)
+            await dispatch(editTeam(id, data));
+            handleCloseEditModal();
+            setTeamId();
         }
-        console.log("data:", data)
-        await dispatch(editTeam(id, data));
-        handleCloseEditModal();
-        setTeamId();
-        
+        else{
+            errorNotify("Please fill all fields!")
+        }
     }
     useEffect(() => {
         setFullName(team?.full_name);
@@ -51,16 +56,14 @@ const EditModal = ({ openEditModal, handleCloseEditModal, team, setTeamId}) => {
                 <Stack spacing={1}>
 
                     <Box>
-                        <TextField id="standard-basic" label="Full Name" variant="standard" sx={{ width: '100%' }} onChange={(e) => setFullName(e.target.value)} InputLabelProps={{ shrink: true }} placeholder={team.full_name} />
+                        <TextField id="standard-basic" label="Full Name" variant="standard" sx={{ width: '100%' }} onChange={(e) => setFullName(e.target.value)} InputLabelProps={{ shrink: true }} value={fullName} />
                     </Box>
-                    {/* <Box>
-              <TextField id="standard-basic" label="Number of Players" variant="standard" sx={{ width: '100%' }} onChange={(e) => { }} InputLabelProps={{ shrink: true }} placeholder={team.full_name} />
-            </Box> */}
+                 
                     <Box>
-                        <TextField id="standard-basic" label="City" variant="standard" sx={{ width: '100%' }} onChange={(e) => setCity(e.target.value)} InputLabelProps={{ shrink: true }} placeholder={team.city} />
+                        <TextField id="standard-basic" label="City" variant="standard" sx={{ width: '100%' }} onChange={(e) => setCity(e.target.value)} InputLabelProps={{ shrink: true }} value={city} />
                     </Box>
                     <Box>
-                        <TextField id="standard-basic" label="Division" variant="standard" sx={{ width: '100%' }} onChange={(e) =>setDivision(e.target.value)} InputLabelProps={{ shrink: true }} placeholder={team.division} />
+                        <TextField id="standard-basic" label="Division" variant="standard" sx={{ width: '100%' }} onChange={(e) =>setDivision(e.target.value)} InputLabelProps={{ shrink: true }} value={division} />
                     </Box>
                     <Box sx={{ width: "100%", pt: "20px" }}>
                         <ContainedButton text="Update" onClick={() => handleUpdate(team.id)} />

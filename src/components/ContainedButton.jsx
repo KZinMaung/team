@@ -17,6 +17,7 @@ const ContainedButton = ({text, startIcon=< ></>, onClick=()=>{}}) => {
             size="large"
             variant="contained"
             startIcon={startIcon}
+            type="submit"
             onClick={onClick}
         >
             {text}
