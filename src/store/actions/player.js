@@ -3,7 +3,6 @@ import { serverErrorMessage, unauthorizedMessage } from "../../utils/message";
 import { REMOVE_ERROR, SET_EDIT_SUCCESS, SET_ERROR, SET_LOADING, SET_PLAYERS, SET_TOTAL_COUNT } from "../type";
 
 export const getPlayers = (page) => {
-   
     return async (dispatch) => {
         dispatch({ type: SET_LOADING });
         try {
@@ -54,7 +53,6 @@ export const changeTeamOfPlayer = (id, team) => {
     const data = {
         "team": team
     }
-    console.log("data:", data)
     return async (dispatch) => {
         dispatch({ type: SET_EDIT_SUCCESS, payload: false });
         dispatch({ type: SET_LOADING });

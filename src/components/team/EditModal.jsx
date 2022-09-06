@@ -39,7 +39,7 @@ const EditModal = ({ openEditModal, handleCloseEditModal, team, setTeamId}) => {
                 "division": division,
                 "full_name": fullName
             }
-            console.log("data:", data)
+
             await dispatch(editTeam(id, data));
             handleCloseEditModal();
             setTeamId();

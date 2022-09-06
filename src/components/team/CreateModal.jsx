@@ -4,8 +4,7 @@ import { createTeam } from "../../store/actions/team";
 import { useForm } from "react-hook-form";
 import ContainedButton from '../ContainedButton';
 const CreateModal = ({ openCreateModal, handleCloseCreateModal }) => {
-  const dispatch = useDispatch();
-
+  
   const theme = useTheme();
   const downThanMd = useMediaQuery(theme.breakpoints.down('md'));
   const downThanLg = useMediaQuery(theme.breakpoints.down('lg'));
@@ -18,7 +17,8 @@ const CreateModal = ({ openCreateModal, handleCloseCreateModal }) => {
     p: 4,
     borderRadius: "10px"
   };
-  
+
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -37,11 +37,15 @@ const CreateModal = ({ openCreateModal, handleCloseCreateModal }) => {
     handleCloseCreateModal();
     handleResetFields();
   }
+  const onClose = ()=>{
+    handleCloseCreateModal();
+    handleResetFields();
+  }
 
   return (
     <Modal
       open={openCreateModal}
-      onClose={handleCloseCreateModal}
+      onClose={onClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
