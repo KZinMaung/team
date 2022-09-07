@@ -12,6 +12,7 @@ export const  REMOVE_ERROR= "REMOVE_ERROR";
 
 export const SET_PLAYER = "SET_PLAYER";
 export const SET_PLAYERS = "SET_PLAYERS";
+export const SET_TOTAL_COUNT = "SET_TOTAL_COUNT";
 
 
 export const SET_TEAM = "SET_TEAM";

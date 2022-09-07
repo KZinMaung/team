@@ -4,9 +4,10 @@ import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { editTeam } from "../../store/actions/team";
 import errorNotify from "../ErrorNotify";
+import { requireMessage } from "../../utils/message";
 
 const EditModal = ({ openEditModal, handleCloseEditModal, team, setTeamId}) => {
-    const dispatch = useDispatch();
+    
     const theme = useTheme();
     const downThanMd = useMediaQuery(theme.breakpoints.down('md'));
     const downThanLg = useMediaQuery(theme.breakpoints.down('lg'));
@@ -23,6 +24,13 @@ const EditModal = ({ openEditModal, handleCloseEditModal, team, setTeamId}) => {
     const [fullName, setFullName] = useState();
     const [city, setCity] = useState();
     const [division, setDivision] = useState();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        setFullName(team?.full_name);
+        setCity(team?.city);
+        setDivision(team?.division);
+      }, [team]);
 
     const handleUpdate = async (id) => {
         if(city && division && fullName){
@@ -31,20 +39,16 @@ const EditModal = ({ openEditModal, handleCloseEditModal, team, setTeamId}) => {
                 "division": division,
                 "full_name": fullName
             }
-            console.log("data:", data)
+
             await dispatch(editTeam(id, data));
             handleCloseEditModal();
             setTeamId();
         }
         else{
-            errorNotify("Please fill all fields!")
+            errorNotify(requireMessage);
         }
     }
-    useEffect(() => {
-        setFullName(team?.full_name);
-        setCity(team?.city);
-        setDivision(team?.division);
-      }, [team]);
+    
     return (
         <Modal
             open={openEditModal}
@@ -58,7 +62,6 @@ const EditModal = ({ openEditModal, handleCloseEditModal, team, setTeamId}) => {
                     <Box>
                         <TextField id="standard-basic" label="Full Name" variant="standard" sx={{ width: '100%' }} onChange={(e) => setFullName(e.target.value)} InputLabelProps={{ shrink: true }} value={fullName} />
                     </Box>
-                 
                     <Box>
                         <TextField id="standard-basic" label="City" variant="standard" sx={{ width: '100%' }} onChange={(e) => setCity(e.target.value)} InputLabelProps={{ shrink: true }} value={city} />
                     </Box>

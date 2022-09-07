@@ -1,5 +1,5 @@
 import { call } from "../../services/api";
-import { serverErrorMessage, unauthorizedMessage } from "../../utils/message";
+import { duplicateMessage, serverErrorMessage, unauthorizedMessage } from "../../utils/message";
 import { DELETE_TEAM, REMOVE_ERROR, SET_CREATE_SUCCESS, SET_DELETE_SUCCESS, SET_EDIT_SUCCESS, SET_ERROR, SET_LOADING, SET_TEAM, SET_TEAMS } from "../type";
 
 export const getTeams = (page) => {
@@ -51,18 +51,31 @@ export const getTeams = (page) => {
 }
 
 export const createTeam = (data) => {
-    console.log("data:", data)
     return async (dispatch) => {
         dispatch({ type: SET_CREATE_SUCCESS, payload: false });
         dispatch({ type: SET_LOADING });
         try {
-            await call("post", "teams", data);
-            setTimeout(() => {
-                dispatch({ type: SET_CREATE_SUCCESS, payload: true });
-            }, 1000);
-            dispatch({
-                type: REMOVE_ERROR,
-            });
+            const response = await call("get", "teams");
+            const teams = response.data;
+            const index = teams.find((team)=> team.full_name === data.full_name);
+            if(index){
+                setTimeout(() => {
+                    dispatch({
+                        type: SET_ERROR,
+                        payload: duplicateMessage,
+                    });
+                }, 1000);
+            }
+            else{
+                await call("post", "teams", data);
+                setTimeout(() => {
+                    dispatch({ type: SET_CREATE_SUCCESS, payload: true });
+                }, 1000);
+                dispatch({
+                    type: REMOVE_ERROR,
+                });
+            }
+            
         } catch (error) {
             const { status } = error.response;
 
@@ -135,32 +148,45 @@ export const editTeam = (id, data) => {
         dispatch({ type: SET_EDIT_SUCCESS, payload: false });
         dispatch({ type: SET_LOADING });
         try {
-            await call("put", `teams/${id}`, data);
-            setTimeout(() => {
-                dispatch({ type: SET_EDIT_SUCCESS, payload: true });
-            }, 1000);
-            dispatch({
-                type: REMOVE_ERROR
-            })
+            const response = await call("get", "teams");
+            const teams = response.data;
+            const oldTeam = teams.filter((team)=> team.full_name === data.full_name);
+            if(oldTeam.length !== 0 && oldTeam[0]?.id !== id){
+                    setTimeout(() => {
+                        dispatch({
+                            type: SET_ERROR,
+                            payload: duplicateMessage,
+                        });
+                    }, 1000);  
+            }
+            else{
+                await call("put", `teams/${id}`, data);
+                setTimeout(() => {
+                    dispatch({ type: SET_EDIT_SUCCESS, payload: true });
+                }, 1000);
+                dispatch({
+                    type: REMOVE_ERROR
+                })
+            }
         }
         catch (error) {
+            console.log("error:", error)
+            // const { status } = error.response;
 
-            const { status } = error.response;
+            // if (status === 401) {
+            //     localStorage.removeItem("user_name");
+            //     dispatch({
+            //         type: SET_ERROR,
+            //         payload: unauthorizedMessage,
+            //     });
+            // }
 
-            if (status === 401) {
-                localStorage.removeItem("user_name");
-                dispatch({
-                    type: SET_ERROR,
-                    payload: unauthorizedMessage,
-                });
-            }
-
-            else {
-                dispatch({
-                    type: SET_ERROR,
-                    payload: serverErrorMessage,
-                });
-            }
+            // else {
+            //     dispatch({
+            //         type: SET_ERROR,
+            //         payload: serverErrorMessage,
+            //     });
+            // }
 
         }
 
@@ -175,16 +201,26 @@ export const getTeam = (id) => {
     return async (dispatch) => {
         dispatch({ type: SET_LOADING });
         try {
-            const response = await call("get", `teams/${id}`);
-            const data = response.data;
+            //in react component, if id === '', need to be 'state.team is empty'
+            if(id === ''){   
+                dispatch({
+                    type: SET_TEAM,
+                    payload: { },
+                });
+            }
+            else{
+                const response = await call("get", `teams/${id}`);
+                const data = response.data;
+                
+                dispatch({
+                    type: SET_TEAM,
+                    payload: data,
+                });
+                dispatch({
+                    type: REMOVE_ERROR
+                })
+            }
             
-            dispatch({
-                type: SET_TEAM,
-                payload: data,
-            });
-            dispatch({
-                type: REMOVE_ERROR
-            })
         }
         catch (error) {
             const { status } = error.response;

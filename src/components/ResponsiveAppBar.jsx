@@ -13,11 +13,9 @@ import MenuItem from '@mui/material/MenuItem';
 import team_logo from "../utils/images/team_logo.png";
 import { Stack, styled } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
-
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from '../store/actions';
 import OutlinedButton from './OutlinedButton';
-
 
 const StyledBox = styled(Box)(({ theme }) => ({
     "&:hover": {
@@ -26,19 +24,7 @@ const StyledBox = styled(Box)(({ theme }) => ({
 }));
 
 const ResponsiveAppBar = ({ pages }) => {
-    const user = useSelector((state) => state.auth.user);
-    const dispatch = useDispatch();
-    const handleLogout = () => {
-        dispatch(logout());
-    }
-
-
-    const navigate = useNavigate();
-    const location = useLocation();
-    const pathName0 = location.pathname;
-    const pathName1 = (pathName0 !== '/admin') ? pathName0.split("/")[2] : pathName0;
-    const pathName = (pathName1.includes("-")) ? pathName1.split("-")[1] : pathName1; 
-
+    //for responsive app bar
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -57,7 +43,21 @@ const ResponsiveAppBar = ({ pages }) => {
         setAnchorElUser(null);
     };
 
+    //states
+    const user = useSelector((state) => state.auth.user);
+    const dispatch = useDispatch();
 
+    //for routing and acitve route
+    const navigate = useNavigate();
+    const location = useLocation();
+    const pathName0 = location.pathname;
+    const pathName =  pathName0.split("/")[2];
+
+    
+    //handle
+    const handleLogout = () => {
+        dispatch(logout());
+    }
 
     return (
         <Box>
@@ -118,9 +118,9 @@ const ResponsiveAppBar = ({ pages }) => {
                             }}
                         >
                             {pages.map((page) => (
-                                <MenuItem key={page.route} onClick={handleCloseNavMenu}>
+                                <MenuItem key={page.key} onClick={handleCloseNavMenu}>
                                     <Typography
-                                        key={page.route}
+                                        key={page.key}
                                         onClick={() => { navigate(`/admin/${page.route}`) }}
                                         sx={{ color: 'var(--primary-color)', mx: 2 }}
                                     >
@@ -198,9 +198,9 @@ const ResponsiveAppBar = ({ pages }) => {
 
                 <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, bgcolor: "var(--light-grey)", paddingLeft: '15%', width: "100vw" }}>
                     {pages.map((page) => (
-                        <StyledBox sx={{ borderBottom: (page.route.includes(pathName)) ? "2px solid var(--primary-color)" : "0px solid var(--primary-color)" }}>
+                        <StyledBox key={page.key} sx={{ borderBottom: (page.route.includes(pathName)) ? "2px solid var(--primary-color)" : "0px solid var(--primary-color)" }}>
                             <Button
-                                key={page.route}
+                                key={page.key}
                                 onClick={() => { navigate(`/admin/${page.route}`) }}
                                 sx={{ mt: 1, mx: 2, color: 'var(--primary-color)', }}
                             >

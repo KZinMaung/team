@@ -1,11 +1,10 @@
-import { Box, Button, Modal, Paper, Stack, TextField, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Modal, Paper, Stack, TextField, useMediaQuery, useTheme } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { createTeam } from "../../store/actions/team";
 import { useForm } from "react-hook-form";
-
+import ContainedButton from '../ContainedButton';
 const CreateModal = ({ openCreateModal, handleCloseCreateModal }) => {
-  const dispatch = useDispatch();
-
+  
   const theme = useTheme();
   const downThanMd = useMediaQuery(theme.breakpoints.down('md'));
   const downThanLg = useMediaQuery(theme.breakpoints.down('lg'));
@@ -18,20 +17,35 @@ const CreateModal = ({ openCreateModal, handleCloseCreateModal }) => {
     p: 4,
     borderRadius: "10px"
   };
-  
+
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
+    resetField,
   } = useForm();
+
+  const handleResetFields = ()=>{
+    resetField("full_name");
+    resetField("no_of_players");
+    resetField("city");
+    resetField("division");
+
+  }
   const onSubmit = (data) => {
     dispatch(createTeam(data));
     handleCloseCreateModal();
+    handleResetFields();
+  }
+  const onClose = ()=>{
+    handleCloseCreateModal();
+    handleResetFields();
   }
 
   return (
     <Modal
       open={openCreateModal}
-      onClose={handleCloseCreateModal}
+      onClose={onClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
@@ -50,9 +64,7 @@ const CreateModal = ({ openCreateModal, handleCloseCreateModal }) => {
               <TextField id="standard-basic" label="Division" variant="standard" sx={{ width: '100%' }}   {...register('division', { required: true })} required />
             </Box>
             <Box sx={{ width: "100%", pt: "20px" }}>
-              {/* <ContainedButton text="Create" onClick={handleCreate}/> */}
-              <Button type="submit">Create</Button>
-
+              <ContainedButton text="Create" />
             </Box>
 
           </Stack>

@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Avatar, Grid, Paper, TextField, Typography } from "@mui/material";
 import { Box, Container, Stack } from "@mui/system";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import loginImage from "../utils/images/login.jpg";
 import team_logo from "../utils/images/team_logo.png";
 import ContainedButton from "../components/ContainedButton";
